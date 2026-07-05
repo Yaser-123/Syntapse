@@ -159,17 +159,25 @@ export default function Home() {
 
     const { hasProgress } = await loadPodState(pod);
 
-    // Connect WebSocket — wait for it to OPEN before triggering backend
+    let isMounted = true;
     let reconnectTimeout: NodeJS.Timeout;
+    
     const connectWs = () => {
-      wsRef.current?.close();
+      if (!isMounted) return;
+      if (wsRef.current) {
+        wsRef.current.onclose = null; // Prevent old handler from triggering
+        wsRef.current.close(1000);
+      }
+      
       const ws = new WebSocket(`${WS_BACKEND}/ws/projects/${pod.id}/graph-stream`);
       wsRef.current = ws;
 
       ws.onerror = () => console.warn('[WS] Could not connect — backend may not be ready yet. Retrying...');
       ws.onclose = (e) => {
+        if (!isMounted) return;
         if (e.code !== 1000) {
-          // Only reconnect on unexpected close (not a clean close we triggered)
+          // Only reconnect on unexpected close
+          clearTimeout(reconnectTimeout);
           reconnectTimeout = setTimeout(connectWs, 2000);
         }
       };
@@ -253,8 +261,15 @@ export default function Home() {
 
     connectWs();
 
-    return () => clearTimeout(reconnectTimeout);
-  }, [loadPodState, persistGraphState, persistTimelineEvent]);
+    return () => {
+      isMounted = false;
+      clearTimeout(reconnectTimeout);
+      if (wsRef.current) {
+        wsRef.current.onclose = null;
+        wsRef.current.close(1000);
+      }
+    };
+  }, [activePod, loadPodState, persistGraphState, persistTimelineEvent]);
 
   // ─── Inject Memory ──────────────────────────────────────────────────────────
   const handleInjectMemory = useCallback((newData: any) => {
