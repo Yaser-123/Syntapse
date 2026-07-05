@@ -1,14 +1,29 @@
 # Syntapse
 
-**The Memory-First Operating System for AI Software Engineering.**
+### The Memory-First Operating System for AI Software Engineering
 
-![Syntapse Hero Image Placeholder](docs/images/hero.png)
+![Syntapse Hero](docs/images/hero.png)
 
-Syntapse is not another AI coding assistant. It is not an agent framework. Syntapse is a living, breathing digital brain where specialized AI agents collaborate autonomously through a persistent, evolving memory graph. 
+## 🎥 Demo Video
 
-Built exclusively on **Cognee**, we've eliminated brittle prompt chains and replaced them with an ecosystem that thinks, remembers, and heals itself.
+### 👉 Click the image below to watch the full demo
+
+[![Watch Demo](https://img.youtube.com/vi/rS-OEcSBRpg/maxresdefault.jpg)](https://youtu.be/rS-OEcSBRpg)
+
+**Or watch here:** https://youtu.be/rS-OEcSBRpg
 
 ---
+
+📖 **Technical Blog:** https://dev.to/yaser-123/we-stopped-passing-prompts-we-started-sharing-memory-3b3k
+
+🏆 **Built for:** Cognee – *The Hangover Part AI: Where's My Context?* Hackathon  
+Organized by **WeMakeDevs**
+
+---
+
+Syntapse is a **memory-first AI software engineering platform** where specialized AI agents collaborate through a shared, evolving memory powered by **Cognee**.
+
+Instead of passing prompts between agents, every specialist reads from and writes to the same persistent memory graph. This enables AI teams to plan, adapt, verify, and continuously evolve software without losing context.
 
 ## 🛑 The Problem
 
