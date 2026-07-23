@@ -128,6 +128,46 @@ Our agents run as background daemons, completely decoupled from the UI.
 3. **The Thread of Consciousness:** Watch the left-hand timeline populate with human-readable cognitive events, proving the AI is actually using memory, not hardcoded scripts.
 4. **The Mic Drop (Healing):** Click the `Tech Stack` node. In the spatial popover, edit the JSON data to change a core technology. Click **"Inject Memory"**. Watch a visual shockwave ripple through the graph, instantly shattering downstream nodes and forcing them to regenerate based on your new truth.
 
+## 🚀 How to Run Locally
+
+### Prerequisites
+- Node.js (v18+)
+- Python 3.10+
+- Docker & Docker Compose
+- Supabase Account (for user auth & basic persistence)
+- Ollama (running locally with `qwen2.5-coder:3b`)
+- Gemini API Key
+
+### 1. Start Database Services
+We use Docker Compose to run the required Redis (for Pub/Sub events) and Memgraph (for Cognee's memory graph) databases locally.
+```bash
+docker compose up -d
+```
+
+### 2. Start the Backend (FastAPI)
+Navigate to the root directory, set up your Python environment, and run the backend. Make sure you have created your `.env` file with `GEMINI_API_KEY`.
+```bash
+# Setup virtual environment (recommended)
+python -m venv .venv
+# Activate virtual environment (Windows)
+.venv\Scripts\activate
+# Install requirements
+pip install -r backend/requirements.txt
+
+# Run the backend server
+uvicorn backend.main:app --reload --host 0.0.0.0
+```
+
+### 3. Start the Frontend (Next.js)
+Open a **new** terminal window, navigate to the frontend folder, and start the development server.
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Your app will be available at [http://localhost:3000](http://localhost:3000).
+
 ## 🛠️ Technology Stack
 
 - **Memory Infrastructure:** Cognee, Memgraph
